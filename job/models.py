@@ -23,6 +23,8 @@ class subjects(models.Model):
     sub_no=models.IntegerField(primary_key=True)
     dept_no=models.ForeignKey(department,on_delete=models.CASCADE)
     scheme_no=models.ForeignKey(scheme,on_delete=models.CASCADE)
+    sub_name=models.TextField(max_length=50,default="name")
+    Sem=models.IntegerField()
 
 
 
