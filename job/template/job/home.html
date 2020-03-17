@@ -22,7 +22,9 @@ http://www.tooplate.com/view/2097-pop
     <link rel="stylesheet" href="{% static "css/tooplate-style.css" %}">                               <!-- Templatemo style -->
 
     <script>document.documentElement.className="js";var supportsCssVars=function(){var e,t=document.createElement("style");return t.innerHTML="root: { --tmp-var: bold; }",document.head.appendChild(t),e=!!(window.CSS&&window.CSS.supports&&window.CSS.supports("font-weight","var(--tmp-var)")),t.parentNode.removeChild(t),e};supportsCssVars()||alert("Please view this in a modern browser such as latest version of Chrome or Microsoft Edge.");</script>
+    <style>
 
+    </style>
 </head>
 
 <body >
@@ -60,7 +62,7 @@ http://www.tooplate.com/view/2097-pop
                                                 <div class="row">
                                                     <div class="col-12">
                                                         <form action="{% url 'dept_form' %}" method="post" class="contact-form">
-                                                          {% csrf_token %}
+                                                            {% csrf_token %}
                                                             <div class="row">
                                                                 <div class="form-group col-md-6 col-lg-6 col-xl-6">
                                                                   <input type="text" id="contact_name" name="dept_name" class="form-control" placeholder="Name"  required/>
@@ -91,7 +93,7 @@ http://www.tooplate.com/view/2097-pop
                                             <div class="pt-sm-4 pb-sm-4 pl-sm-5 pr-sm-5 pt-2 pb-2 pl-3 pr-3">
                                                 <div class="row mb-3">
                                                     <div class="col-12">
-                                                        <h2 class="tm-page-title">Add Student</h2>
+                                                        <h2 class="tm-page-title">Add New Student</h2>
                                                     </div>
                                                 </div>
 
@@ -112,21 +114,19 @@ http://www.tooplate.com/view/2097-pop
                                                               <div class="form-group col-md-6 col-lg-6 col-xl-6">
                                                                 <input type="text" id="contact_name" name="enroll_no" class="form-control" placeholder="Enrollment Number"  required/>
                                                               </div>
-
                                                             </div>
                                                             <div class="row">
                                                                 <div class="form-group col-md-6 col-lg-6 col-xl-6">
-                                                                  <label for="cars"><h5>Department Number</h5></label>
-
-                                                                  <select id="cars">
-                                                                    {% for job in department.all %}
-                                                                    <option value="{{job.dept_no}}">{{job.dept_no}}</option>
+                                                                  <h5>Department No ::</h5>
+                                                                  <select name="student_dept_no">
+                                                                    {% for element in dept_no_list.all %}
+                                                                    <option value="{{ element.dept_no }}">{{ element.dept_no }}</option>
                                                                     {% endfor %}
 
                                                                   </select>
 
-                                                                </div>
 
+                                                                </div>
                                                             </div>
 
                                                             <button type="submit" class="btn btn-primary tm-btn-submit">Save</button>
@@ -135,7 +135,6 @@ http://www.tooplate.com/view/2097-pop
                                                 </div>
                                             </div>
                                         </div>
-
 
                                     </div>
                                 </div>
@@ -155,52 +154,70 @@ http://www.tooplate.com/view/2097-pop
                                             <div class="pt-sm-4 pb-sm-4 pl-sm-5 pr-sm-5 pt-2 pb-2 pl-3 pr-3">
                                                 <div class="row mb-3">
                                                     <div class="col-12">
-                                                        <h2 class="tm-page-title">Add Subject</h2>
+                                                        <h2 class="tm-page-title">Add New Subject</h2>
                                                     </div>
                                                 </div>
 
                                                 <div class="row">
                                                     <div class="col-12">
-                                                        <form action="index.html" method="post" class="contact-form">
+                                                        <form action="{% url 'sub_form' %}" method="post" class="contact-form">
+                                                          {% csrf_token %}
                                                             <div class="row">
                                                                 <div class="form-group col-md-6 col-lg-6 col-xl-6">
-                                                                  <input type="text" id="contact_name" name="contact_name" class="form-control" placeholder="Subject Name"  required/>
+                                                                  <input type="text" id="contact_name" name="sub_name" class="form-control" placeholder="Subject Name"  required/>
                                                                 </div>
 
                                                                 <div class="form-group col-md-6 col-lg-6 col-xl-6 tm-col-email">
-                                                                  <input type="text" id="contact_email" name="contact_email" class="form-control" placeholder="Subject Number"  required/>
+                                                                  <input type="text" id="contact_email" name="sub_no" class="form-control" placeholder="Subject Code"  required/>
+                                                                </div>
+                                                            </div>
+
+
+                                                            <div class="row">
+                                                                <div class="form-group col-md-6 col-lg-6 col-xl-6">
+                                                                  <label for="cars"><h5>Scheme ::</h5></label>
+                                                                  <select id="cars" name="sub_scheme_no">
+                                                                    {% for element in scheme_no_list.all %}
+                                                                    <option value="{{ element.scheme_no }}" >{{ element.scheme_no }}</option>
+                                                                    {% endfor %}
+                                                                  </select>
+
+
                                                                 </div>
                                                             </div>
 
                                                             <div class="row">
                                                                 <div class="form-group col-md-6 col-lg-6 col-xl-6">
-                                                                  <label for="cars"><h5>Department Number</h5></label>
-
-                                                                  <select id="cars">
-                                                                    <option value="volvo">Volvo</option>
-                                                                    <option value="saab">Saab</option>
-                                                                    <option value="mercedes">Mercedes</option>
-                                                                    <option value="audi">Audi</option>
+                                                                  <label for="cars"><h5>Department No ::</h5></label>
+                                                                  <select id="cars" name="sub_dept_no">
+                                                                    {% for element in dept_no_list.all %}
+                                                                    <option value="{{ element.dept_no }}" >{{ element.dept_no }}</option>
+                                                                    {% endfor %}
                                                                   </select>
 
-                                                                </div>
 
+                                                                </div>
                                                             </div>
                                                             <div class="row">
-                                                              <div class="form-group col-md-6 col-lg-6 col-xl-6">
-                                                                <label for="cars"><h5>Scheme Number</h5></label>
+                                                                <div class="form-group col-md-6 col-lg-6 col-xl-6">
+                                                                  <label for="cars"><h5>Semester ::</h5></label>
+                                                                  <select id="cars" name="Sem">
+                                                                    <option value="1" >1</option>
+                                                                    <option value="2" >2</option>
+                                                                    <option value="3" >3</option>
+                                                                    <option value="4" >4</option>
+                                                                    <option value="5" >5</option>
+                                                                    <option value="6" >6</option>
+                                                                    <option value="7" >7</option>
+                                                                    <option value="8" >8</option>
 
-                                                                <select id="cars">
-                                                                  <option value="volvo">Volvo</option>
-                                                                  <option value="saab">Saab</option>
-                                                                  <option value="mercedes">Mercedes</option>
-                                                                  <option value="audi">Audi</option>
-                                                                </select>
 
-                                                              </div>
+
+                                                                  </select>
+
+
+                                                                </div>
                                                             </div>
-
-
 
                                                             <button type="submit" class="btn btn-primary tm-btn-submit">Save</button>
                                                         </form>
@@ -235,10 +252,11 @@ http://www.tooplate.com/view/2097-pop
 
                                                 <div class="row">
                                                     <div class="col-12">
-                                                        <form action="index.html" method="post" class="contact-form">
+                                                        <form action="{% url 'scheme_form' %}" method="post" class="contact-form">
+                                                          {% csrf_token %}
                                                             <div class="row">
                                                                 <div class="form-group col-md-6 col-lg-6 col-xl-6">
-                                                                  <input type="text" id="contact_name" name="contact_name" class="form-control" placeholder="Scheme Number"  required/>
+                                                                  <input type="text" id="contact_name" name="scheme_no" class="form-control" placeholder="Scheme Number"  required/>
                                                                 </div>
 
 
@@ -246,68 +264,77 @@ http://www.tooplate.com/view/2097-pop
 
                                                             <div class="row">
                                                                 <div class="form-group col-md-6 col-lg-6 col-xl-6">
-                                                                  <label for="cars"><h5>Theory Credit</h5></label>
-
-                                                                  <select id="cars">
-                                                                    <option value="1">1</option>
+                                                                  <label for="cars"><h5>Theory Credit ::</h5></label>
+                                                                  <select id="cars" name="theory_cr">
+                                                                    <option value="1" >1</option>
                                                                     <option value="2">2</option>
                                                                     <option value="3">3</option>
 
                                                                   </select>
 
+
                                                                 </div>
-
                                                             </div>
+
+
                                                             <div class="row">
-                                                              <div class="form-group col-md-6 col-lg-6 col-xl-6">
-                                                                <label for="cars"><h5>Practical Credits</h5></label>
+                                                                <div class="form-group col-md-6 col-lg-6 col-xl-6">
+                                                                  <label for="cars"><h5>Practical Credit::</h5></label>
+                                                                  <select id="cars" name="practical_cr">
+                                                                    <option value="1" >1</option>
+                                                                    <option value="2">2</option>
+                                                                    <option value="3">3</option>
 
-                                                                <select id="cars">
-                                                                  <option value="1">1</option>
-                                                                  <option value="2">2</option>
-                                                                  <option value="3">3</option>
-                                                                </select>
+                                                                  </select>
 
-                                                              </div>
+
+                                                                </div>
                                                             </div>
+
+
                                                             <div class="row">
-                                                              <div class="form-group col-md-6 col-lg-6 col-xl-6">
-                                                                <label for="cars"><h5>Theory Maximum marks</h5></label>
+                                                                <div class="form-group col-md-6 col-lg-6 col-xl-6">
+                                                                  <label for="cars"><h5>Max_Theory::</h5></label>
+                                                                  <select id="cars" name="max_th">
+                                                                    <option value="0" >0</option>
+                                                                    <option value="50">50</option>
+                                                                    <option value="80">80</option>
 
-                                                                <select id="cars">
-                                                                  <option value="0">0</option>
-                                                                  <option value="50">50</option>
-                                                                  <option value="80">80</option>
+                                                                  </select>
 
-                                                                </select>
 
-                                                              </div>
+                                                                </div>
                                                             </div>
+
+
                                                             <div class="row">
-                                                              <div class="form-group col-md-6 col-lg-6 col-xl-6">
-                                                                <label for="cars"><h5>Mid Term Maximum Marks</h5></label>
+                                                                <div class="form-group col-md-6 col-lg-6 col-xl-6">
+                                                                  <label for="cars"><h5>Max_mid_term ::</h5></label>
+                                                                  <select id="cars" name="max_mid">
+                                                                    <option value="20" >20</option>
 
-                                                                <select id="cars">
-                                                                  <option value="20">20</option>
 
-                                                                </select>
+                                                                  </select>
 
-                                                              </div>
+
+                                                                </div>
                                                             </div>
+
+
+
                                                             <div class="row">
-                                                              <div class="form-group col-md-6 col-lg-6 col-xl-6">
-                                                                <label for="cars"><h5>Practical Maximum Marks</h5></label>
+                                                                <div class="form-group col-md-6 col-lg-6 col-xl-6">
+                                                                  <label for="cars"><h5>Max_Practical ::</h5></label>
+                                                                  <select id="cars" name="max_pr">
+                                                                    <option value="0" >0</option>
+                                                                    <option value="30">30</option>
+                                                                    <option value="80">80</option>
 
-                                                                <select id="cars">
-                                                                  <option value="0">0</option>
-                                                                  <option value="30">30</option>
-                                                                  <option value="80">80</option>
+                                                                  </select>
 
-                                                                </select>
 
-                                                              </div>
+                                                                </div>
                                                             </div>
-
 
                                                             <button type="submit" class="btn btn-primary tm-btn-submit">Save</button>
                                                         </form>
@@ -335,53 +362,39 @@ http://www.tooplate.com/view/2097-pop
 
                                                 <div class="row">
                                                     <div class="col-12">
-                                                        <form action="index.html" method="post" class="contact-form">
+                                                        <form action="{% url 'marks_form' %}" method="post" class="contact-form">
+                                                          {% csrf_token %}
                                                             <div class="row">
                                                                 <div class="form-group col-md-6 col-lg-6 col-xl-6">
-                                                                  <input type="text" id="contact_name" name="contact_name" class="form-control" placeholder="Enrollment Number"  required/>
+                                                                  <input type="text" id="contact_name" name="marks_enroll_no" class="form-control" placeholder="Enrollment Number"  required/>
                                                                 </div>
+                                                              </div>
+                                                              <div class="row">
+                                                                <div class="form-group col-md-6 col-lg-6 col-xl-6 ">
+                                                                  <label for="cars"><h5>Subject No ::</h5></label>
+                                                                  <select id="cars" name="marks_sub_no">
+                                                                    {% for element in sub_no_list.all %}
+                                                                    <option value="{{ element.sub_no }}" >{{ element.sub_no }}</option>
+                                                                    {% endfor %}
 
-
-                                                            </div>
-
-                                                            <div class="row">
-                                                                <div class="form-group col-md-6 col-lg-6 col-xl-6">
-                                                                  <label for="cars"><h5>Subject Number</h5></label>
-
-                                                                  <select id="cars">
-                                                                    <option value="volvo">Volvo</option>
-                                                                    <option value="saab">Saab</option>
-                                                                    <option value="mercedes">Mercedes</option>
-                                                                    <option value="audi">Audi</option>
                                                                   </select>
-
                                                                 </div>
-
-                                                            </div>
-
-                                                            <div class="row">
-                                                                <div class="form-group col-md-6 col-lg-6 col-xl-6">
-                                                                  <input type="text" id="contact_name" name="contact_name" class="form-control" placeholder="Theory"  required/>
-                                                                </div>
-
-
                                                             </div>
                                                             <div class="row">
                                                                 <div class="form-group col-md-6 col-lg-6 col-xl-6">
-                                                                  <input type="text" id="contact_name" name="contact_name" class="form-control" placeholder="Mid Terms"  required/>
+                                                                  <input type="text" id="contact_name" name="th" class="form-control" placeholder="Theory"  required/>
                                                                 </div>
-
-
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="form-group col-md-6 col-lg-6 col-xl-6">
-                                                                  <input type="text" id="contact_name" name="contact_name" class="form-control" placeholder="Practical"  required/>
+                                                              </div>
+                                                              <div class="row">
+                                                                  <div class="form-group col-md-6 col-lg-6 col-xl-6">
+                                                                    <input type="text" id="contact_name" name="pr" class="form-control" placeholder="Practical"  required/>
+                                                                  </div>
                                                                 </div>
-
-
-                                                            </div>
-
-
+                                                                <div class="row">
+                                                                    <div class="form-group col-md-6 col-lg-6 col-xl-6">
+                                                                      <input type="text" id="contact_name" name="mid" class="form-control" placeholder="Mid Term"  required/>
+                                                                    </div>
+                                                                  </div>
 
                                                             <button type="submit" class="btn btn-primary tm-btn-submit">Save</button>
                                                         </form>
@@ -403,7 +416,7 @@ http://www.tooplate.com/view/2097-pop
                                             <div class="pt-sm-4 pb-sm-4 pl-sm-5 pr-sm-5 pt-2 pb-2 pl-3 pr-3">
                                                 <div class="row mb-3">
                                                     <div class="col-12">
-                                                        <h2 class="tm-page-title">Add New Department</h2>
+                                                        <h2 class="tm-page-title">Check Result</h2>
                                                     </div>
                                                 </div>
 
@@ -415,21 +428,6 @@ http://www.tooplate.com/view/2097-pop
                                                                   <input type="text" id="contact_name" name="contact_name" class="form-control" placeholder="Enrollment Number"  required/>
                                                                 </div>
 
-                                                                    <div class="form-group col-md-6 col-lg-6 col-xl-6">
-                                                                      <label for="cars"><h5>Semester</h5></label>
-
-                                                                      <select id="cars">
-                                                                        <option value="volvo">Volvo</option>
-                                                                        <option value="saab">Saab</option>
-                                                                        <option value="mercedes">Mercedes</option>
-                                                                        <option value="audi">Audi</option>
-                                                                      </select>
-
-                                                                    </div>
-
-
-
-
                                                             </div>
 
                                                             <button type="submit" class="btn btn-primary tm-btn-submit">Submit</button>
@@ -438,13 +436,6 @@ http://www.tooplate.com/view/2097-pop
                                                 </div>
                                             </div>
                                         </div>
-
-
-
-
-
-
-
                                     </div>
                                 </div>
                             </div>
