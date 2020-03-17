@@ -22,8 +22,9 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',job.views.home,name='home'),
-    path('dept_form/',job.views.dept_form,name='dept_form'),
-    path('student_form/',job.views.student_form,name='student_form'),
-
-
+    path('dept_form',job.views.dept_form,name='dept_form'),
+    path('student_form',job.views.student_form,name='student_form'),
+    path('scheme_form',job.views.scheme_form,name='scheme_form'),
+    path('sub_form',job.views.sub_form,name='sub_form'),
+    path('marks_form',job.views.marks_form,name='marks_form'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
