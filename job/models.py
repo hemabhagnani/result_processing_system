@@ -96,6 +96,8 @@ class result(models.Model):
     sem7=models.FloatField(default=0)
     sem8=models.FloatField(default=0)
     ogpa=models.FloatField(default=0)
+    previous_grades=models.FloatField(default=0)
+    total_credits_hour=models.IntegerField(default=0)
 
     def __str__(self):
-        return " Sem1 = " + str(self.sem1) + " Sem2 = " + str(self.sem2) + " Sem3 = " + str(self.sem3) + " Sem4 = " + str(self.sem4) + " Sem5 = " + str(self.sem5) + " Sem6 = " + str(self.sem6) + " Sem7 = " + str(self.sem7) + " Sem8 = " + str(self.sem8) + " OGPA = " + str(self.ogpa)
+        return  str(self.result_enroll_no) + " Sem1 = " + str(self.sem1) + " Sem2 = " + str(self.sem2) + " Sem3 = " + str(self.sem3) + " Sem4 = " + str(self.sem4) + " Sem5 = " + str(self.sem5) + " Sem6 = " + str(self.sem6) + " Sem7 = " + str(self.sem7) + " Sem8 = " + str(self.sem8) + " OGPA = " + str(self.ogpa)

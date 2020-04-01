@@ -272,7 +272,7 @@ def marks_form(request):
                                         back=backlog()
                                         enroll=request.POST['marks_enroll_no']
                                         back.back_enroll_no=student.objects.get(enroll_no=enroll)
-                                        back.back_sub_no=subjects.objects.get(sub_no=marks_sub_no)
+                                        back.back_sub_no=subjects.objects.get(sub_no=sub_id)
                                         back.save()
 
                                 if th_cr==1 and pr_cr==0 or th_cr==2 and pr_cr==0 or th_cr==3 and pr_cr==0 or th_cr==4 and pr_cr==0:
@@ -280,7 +280,7 @@ def marks_form(request):
                                         back=backlog()
                                         enroll=request.POST['marks_enroll_no']
                                         back.back_enroll_no=student.objects.get(enroll_no=enroll)
-                                        back.back_sub_no=subjects.objects.get(sub_no=marks_sub_no)
+                                        back.back_sub_no=subjects.objects.get(sub_no=sub_id)
                                         back.save()
 
                                 if th_cr==1 and pr_cr==2 or th_cr==1 and pr_cr==3 or th_cr==1 and pr_cr==4:
@@ -288,7 +288,7 @@ def marks_form(request):
                                         back=backlog()
                                         enroll=request.POST['marks_enroll_no']
                                         back.back_enroll_no=student.objects.get(enroll_no=enroll)
-                                        back.back_sub_no=subjects.objects.get(sub_no=marks_sub_no)
+                                        back.back_sub_no=subjects.objects.get(sub_no=sub_id)
                                         back.save()
 
                                 Marks.save()
@@ -306,18 +306,21 @@ def marks_form(request):
 def result_form(request):
     if request.method=='POST':
         if student.objects.filter(enroll_no=request.POST['result_enroll']).exists():
+
             student_object=student.objects.get(enroll_no=request.POST['result_enroll'])
+
             field_name_roll='enroll_no'
             field_object_result=student._meta.get_field(field_name_roll)
             roll_no=field_object_result.value_from_object(student_object)
 
-            field_name_stu_scheme_year='student_scheme_year'
-            field_object_stu_scheme=student._meta.get_field(field_name_stu_scheme_year)
-            stu_scheme_year=str(field_object_stu_scheme.value_from_object(student_object))
-            compare_scheme_code=int(stu_scheme_year[-4:])
-            print(compare_scheme_code)
+            # field_name_stu_scheme_year='student_scheme_year'
+            # field_object_stu_scheme=student._meta.get_field(field_name_stu_scheme_year)
+            # stu_scheme_year=str(field_object_stu_scheme.value_from_object(student_object))
+            # compare_scheme_code=int(stu_scheme_year[-4:])
+            # print(compare_scheme_code)
+
             result_sem_no=request.POST['Sem']
-            sub_no_obj=subjects.objects.all().filter(sem=result_sem_no).filter(sub_stu_scheme=compare_scheme_code)
+            sub_no_obj=subjects.objects.all().filter(sem=result_sem_no)
 
             Marks=marks.objects.all().filter(marks_enroll_no=roll_no).filter(marks_sub_no__in=sub_no_obj)
             result_sum=0
@@ -339,27 +342,47 @@ def result_form(request):
 
             fnl_result=float(result_sum/(result_cr))
 
-            # if result.objects.filter(result_enroll_no=roll_no).exists():
-            #     res_obj=result.objects.filter(result_enroll_no=roll_no)
-            #
-            #     if int(request.POST['Sem'])==1:
-            #         if float(res_obj.sem1)!= 0:
-            #             res_obj.update(sem1=fnl_result)
-            #             res_obj.update(ogpa=fnl_result)
-            #         else:
-            #                         final_result=result()
-            #                         final_result.result_enroll_no=student.objects.get(enroll_no=request.POST['result_enroll'])
-            #                         final_result.sem1=fnl_result
-            #                         final_result.ogpa=fnl_result
-            #                         final_result.save()
-            #     else:
+            if result.objects.filter(result_enroll_no=roll_no).exists():
+                res_obj=result.objects.get(result_enroll_no=request.POST['result_enroll'])
+
+                if int(request.POST['Sem'])==1:
+                    if float(res_obj.sem1)!= 0:
+                        res_obj.update(sem1=fnl_result)
+                        res_obj.update(ogpa=fnl_result)
+                    else:
+                        final_result=result()
+                        final_result.result_enroll_no=student.objects.get(enroll_no=request.POST['result_enroll'])
+                        final_result.sem1=fnl_result
+                        final_result.ogpa=fnl_result
+                        final_result.save()
+                elif int(request.POST['Sem'])==2:
+                        result.objects.filter(result_enroll_no=request.POST['result_enroll']).update(sem2=fnl_result)
+                        # res_obj.update(sem2=fnl_result)
+                        sem_2=(float(res_obj.sem1)+fnl_result)/2
+                        # res_obj.update(ogpa=sem_2)
+                        result.objects.filter(result_enroll_no=request.POST['result_enroll']).update(ogpa=sem_2)
+
+                elif int(request.POST['Sem'])==3:
+                    if float(res_obj.sem2)!= 0:
+                        res_obj.update(sem3=fnl_result)
+                        sem_3=(float(res_obj.sem1)+float(res_obj.sem2)+fnl_result)/3
+                        res_obj.update(ogpa=sem_3)
+                    else:
+                        final_result=result()
+                        final_result.result_enroll_no=student.objects.get(enroll_no=request.POST['result_enroll'])
+                        final_result.sem3=fnl_result
+                        sem_3=(float(res_obj.sem1)+float(res_obj.sem2)+fnl_result)/3
+                        final_result.ogpa=sem_3
+                        final_result.save()
 
 
-            final_result=result()
-            final_result.result_enroll_no=student.objects.get(enroll_no=request.POST['result_enroll'])
-            final_result.sem1=fnl_result
-            final_result.ogpa=fnl_result
-            final_result.save()
+            else:
+                        final_result=result()
+                        final_result.result_enroll_no=student.objects.get(enroll_no=request.POST['result_enroll'])
+                        final_result.sem1=fnl_result
+                        final_result.ogpa=fnl_result
+                        final_result.save()
+
             return redirect('home')
         else:
                 return redirect(home,error_message="Student Does Not Exist!!")
